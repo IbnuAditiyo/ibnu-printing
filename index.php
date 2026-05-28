@@ -130,20 +130,31 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
                     break;
 
                 case 'list_artikel':
-                    echo "<h2>Daftar Artikel / Informasi</h2>";
+                    echo "<h2>Daftar Artikel & File Informasi</h2>";
+                    echo "<p style='margin-bottom: 20px;'>Informasi akademis, tips pencetakan, dan unduhan dokumen penting:</p>";
+                    
                     $query = "SELECT * FROM artikel ORDER BY id DESC";
                     $result = mysqli_query($koneksi, $query);
                     
                     if(mysqli_num_rows($result) > 0) {
                         while($row = mysqli_fetch_assoc($result)) {
-                            echo "<div style='border:1px solid #ccc; padding:15px; margin-bottom:15px;'>";
-                            echo "<h3>".htmlspecialchars($row['judul'])."</h3>";
-                            echo "<small>Diupload: ".$row['tanggal_upload']."</small>";
-                            echo "<p style='margin-top:10px;'>".nl2br(htmlspecialchars($row['konten']))."</p>";
+                            echo "<div style='border:1px solid #ddd; border-radius: 5px; background: #fafafa; padding:20px; margin-bottom:20px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);'>";
+                            echo "<h3 style='color: #2c3e50; margin-bottom: 5px;'>".htmlspecialchars($row['judul'])."</h3>";
+                            echo "<small style='color: #95a5a6;'>Diupload pada: ".$row['tanggal_upload']."</small>";
+                            echo "<p style='margin-top:12px; margin-bottom: 15px; color: #555; text-align: justify;'>".nl2br(htmlspecialchars($row['konten']))."</p>";
+                            
+                            // Logika mendeteksi keberadaan file fisik
+                            if(!empty($row['file_pdf'])) {
+                                echo "<div style='background: #eaf2f8; padding: 10px 15px; border-radius: 4px; display: inline-block;'>";
+                                echo "📂 <strong>Lampiran Dokumen:</strong> ";
+                                echo "<a href='uploads/".htmlspecialchars($row['file_pdf'])."' target='_blank' style='color: #2980b9; text-decoration: underline; font-weight: bold;'>Lihat / Unduh File</a>";
+                                echo "</div>";
+                            }
+                            
                             echo "</div>";
                         }
                     } else {
-                        echo "<p>Belum ada artikel yang diupload.</p>";
+                        echo "<p style='color: #7f8c8d; font-style: italic;'>Belum ada artikel atau file informasi yang diunggah oleh admin.</p>";
                     }
                     break;
 

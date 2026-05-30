@@ -32,7 +32,7 @@ if(isset($_POST['submit_artikel'])) {
 
         if(in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
             if($ukuran_file < 5242880) { // Batas maksimal 5MB
-                // Buat folder uploads jika belum ada
+                // Buat folder uploads
                 if (!is_dir('uploads')) {
                     mkdir('uploads', 0777, true);
                 }

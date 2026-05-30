@@ -8,10 +8,6 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Password default: admin123 (sudah di-hash agar bisa login)
-INSERT INTO `users` (`username`, `password`) VALUES
-('ibnu', '$2y$10$16FSyfYmbV5OU/tRG2ckven32SRYQWhoM3JDWv4Q/TcRwIYcvqZKO');
-
 CREATE TABLE `artikel` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `judul` varchar(150) NOT NULL,
